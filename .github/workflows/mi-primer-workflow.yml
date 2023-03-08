@@ -13,7 +13,7 @@ jobs:
         id: imprimir
         env:
           MI_VARIABLE: Hola mundo
-        run: echo "::set-output name=respuesta::${MI_VARIABLE}"
+        run: echo "::save-state name=respuesta::${MI_VARIABLE}"
   Mi-segundo-job:
     needs: Mi-primer-job
     name: Mi segundo job
