@@ -1,2 +1,5 @@
+# Temporary and binary files
+__pycache__/*
 # Project files
 .idea
+.bak
