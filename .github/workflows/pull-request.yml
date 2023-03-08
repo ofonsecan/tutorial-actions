@@ -35,6 +35,7 @@ jobs:
           coverage run -m unittest tests/test_persona.py
           coverage report -m
   automerge:
+    permissions: write-all
     name: Automerge
     needs: job1
     runs-on: ubuntu-latest
