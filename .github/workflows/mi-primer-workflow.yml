@@ -13,7 +13,7 @@ jobs:
         id: imprimir
         env:
           MI_VARIABLE: Hola mundo
-        run: echo "::set-output name=respuesta::${MI_VARIABLE}"
+        run: echo "respuesta=${MI_VARIABLE}" >> $GITHUB_OUTPUT
   Mi-segundo-job:
     needs: Mi-primer-job
     name: Mi segundo job
