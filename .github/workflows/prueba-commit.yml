@@ -55,9 +55,9 @@ jobs:
         env:
           RAMA: ${GITHUB_REF#refs/heads/}
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      - name: Mezcla ${{ jobs.Merge-desde-develop.outputs.branch }} -> develop
+      - name: Mezcla ${{ steps.guardar-rama.outputs.branch }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ jobs.Merge-desde-develop.outputs.branch }}
+          source-branch: ${{ steps.guardar-rama.outputs.branch }}
           target-branch: master
