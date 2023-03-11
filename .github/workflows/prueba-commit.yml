@@ -22,7 +22,7 @@ jobs:
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ steps.guardar-rama.outputs.rama }}
+          source-branch: eng:${{ steps.guardar-rama.outputs.rama }}
           target-branch: develop
       - name: Checkout de repositorio
         uses: actions/checkout@v2
