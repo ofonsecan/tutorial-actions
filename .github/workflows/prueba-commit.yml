@@ -18,7 +18,7 @@ jobs:
       - name: Obtener rama
         id: obtener-rama
         run: echo ${{steps.guardar-rama.outputs.rama}}
-      - name: Mezcla ${{ github.head_ref }} -> develop
+      - name: Mezcla ${{ github.ref }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
