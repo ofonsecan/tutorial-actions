@@ -47,12 +47,12 @@ jobs:
   Merge-a-develop:
     permissions: write-all
     name: Merge a develop
-    needs: Pruebas-unitarias
+    needs: [Merge-desde-develop, Pruebas-unitarias]
     runs-on: ubuntu-latest
     steps:
-      - name: Mezcla ${{ jobs.Merge-desde-develop.outputs.branch }} -> develop
+      - name: Mezcla ${{ needs.Merge-desde-develop.outputs.branch }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ jobs.Merge-desde-develop.outputs.branch }}
+          source-branch: ${{ needs.Merge-desde-develop.outputs.branch }}
           target-branch: master
