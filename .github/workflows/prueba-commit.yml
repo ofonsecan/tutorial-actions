@@ -13,7 +13,7 @@ jobs:
       - name: Imprimir nombre de la rama
         id: imprimir-rama
         env:
-          MI_VARIABLE: ${{ github.ref#refs/heads/ }}
+          MI_VARIABLE: ${{ github.ref }}
         run: echo "respuesta=${MI_VARIABLE}" >> $GITHUB_OUTPUT
       - name: Mezcla ${{ github.ref }} -> develop
         uses: tukasz/direct-merge-action@master
