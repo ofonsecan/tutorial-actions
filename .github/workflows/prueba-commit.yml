@@ -10,11 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'CI-DEVELOP') }}
     steps:
-      - name: Mezcla ${{ github.refF#refs/heads/ }} -> develop
+      - name: Imprimir nombre de la rama
+        id: imprimir-rama
+        env:
+          MI_VARIABLE: Hola mundo
+        run: echo "respuesta=${MI_VARIABLE}" >> $GITHUB_OUTPUT
+      - name: Mezcla ${{ github.ref }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ github.refF#refs/heads/ }}
+          source-branch: ${{ github.ref }}
           target-branch: develop
       - name: Checkout de repositorio
         uses: actions/checkout@v2
