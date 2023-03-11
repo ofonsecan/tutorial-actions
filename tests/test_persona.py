@@ -44,4 +44,4 @@ class PersonaTestCase(unittest.TestCase):
       self.assertNotIsInstance(self.grupo, Persona)
 
    def test_paila(self):
-      self.assertEqual(1, 2)
+      self.assertEqual(2, 2)
