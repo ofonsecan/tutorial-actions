@@ -14,11 +14,11 @@ jobs:
         id: guardar-rama
         env:
           RAMA: ${GITHUB_REF#refs/heads/}
-        run: echo "rama=$(echo ${RAMA})" >> $GITHUB_OUTPUT
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       - name: Obtener rama
         id: obtener-rama
-        run: echo ${{steps.guardar-rama.outputs.rama}}
-      - name: Mezcla ${{ steps.guardar-rama.outputs.rama }} -> develop
+        run: echo ${{steps.guardar-rama.outputs.branch}}
+      - name: Mezcla ${{ steps.guardar-rama.outputs.branch }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
