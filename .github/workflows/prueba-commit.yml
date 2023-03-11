@@ -17,12 +17,12 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       - name: Obtener rama
         id: obtener-rama
-        run: echo ${{steps.guardar-rama.outputs.rama}}
-      - name: Mezcla ${{ steps.guardar-rama.outputs.rama }} -> develop
+        run: echo ${{steps.guardar-rama.outputs.branch}}
+      - name: Mezcla ${{ steps.guardar-rama.outputs.branch }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ steps.guardar-rama.outputs.rama }}
+          source-branch: ${{ steps.guardar-rama.outputs.branch }}
           target-branch: master
       - name: Checkout de repositorio
         uses: actions/checkout@v2
