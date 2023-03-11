@@ -1,0 +1,52 @@
+name: CI Release
+on:
+  push:
+    branches: [ develop ]
+jobs:
+  Crear-rama:
+    permissions: write-all
+    name: Crear rama release
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'CI-RELEASE') }}
+    steps:
+      - name: Checkout de repositorio
+        uses: actions/checkout@v2
+      - name: Crear rama release
+        run: |
+          git checkout -b release/semana7
+          git push -f -u origin release/semana7
+  Pruebas-unitarias:
+    name: Pruebas unitarias
+    needs: Crear-rama
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout de repositorio
+        uses: actions/checkout@v2
+      - name: Configuración de entorno de python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Instalación de librerías y dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Correr pruebas unitarias
+        id: correr-pruebas
+        run: python -m unittest -v tests/test_persona.py
+      - name: Cálculo de cubrimiento
+        id: cubrimiento
+        run: |
+          coverage run -m unittest tests/test_persona.py
+          coverage report -m
+  Merge-a-main:
+    permissions: write-all
+    name: Merge a main
+    needs: Pruebas-unitarias
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mezcla release/semana7 -> master
+        uses: tukasz/direct-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: release/semana7
+          target-branch: master
