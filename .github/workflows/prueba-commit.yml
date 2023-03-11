@@ -18,7 +18,7 @@ jobs:
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: $master
+          source-branch: master
           target-branch: ${{ steps.guardar-rama.outputs.branch }}
   Pruebas-unitarias:
     name: Pruebas unitarias
@@ -46,7 +46,7 @@ jobs:
           coverage report -m
   Merge-a-develop:
     permissions: write-all
-    name: Automerge
+    name: Merge a develop
     needs: Pruebas-unitarias
     runs-on: ubuntu-latest
     steps:
