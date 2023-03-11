@@ -50,9 +50,9 @@ jobs:
     needs: Pruebas-unitarias
     runs-on: ubuntu-latest
     steps:
-      - name: Mezcla ${{ needs.Merge-desde-develop.outputs.branch }} -> develop
+      - name: Mezcla ${{ jobs.Merge-desde-develop.outputs.branch }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ needs.Merge-desde-develop.outputs.branch }}
+          source-branch: ${{ jobs.Merge-desde-develop.outputs.branch }}
           target-branch: master
