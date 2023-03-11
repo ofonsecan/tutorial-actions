@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - 'feature**'
-      - master
 jobs:
   Pruebas:
     permissions: write-all
@@ -11,20 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'CI-DEVELOP') }}
     steps:
-      - name: Guardar rama
-        id: guardar-rama
-        env:
-          RAMA: ${GITHUB_REF#refs/heads/}
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      - name: Obtener rama
-        id: obtener-rama
-        run: echo ${{steps.guardar-rama.outputs.branch}}
-      - name: Mezcla ${{ steps.guardar-rama.outputs.branch }} -> develop
-        uses: tukasz/direct-merge-action@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ steps.guardar-rama.outputs.branch }}
-          target-branch: master
       - name: Checkout de repositorio
         uses: actions/checkout@v2
       - name: Configuración de entorno de python
@@ -43,3 +28,14 @@ jobs:
         run: |
           coverage run -m unittest tests/test_persona.py
           coverage report -m
+      - name: Guardar nombre de la rama
+        id: guardar-rama
+        env:
+          RAMA: ${GITHUB_REF#refs/heads/}
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      - name: Mezcla ${{ steps.guardar-rama.outputs.branch }} -> develop
+        uses: tukasz/direct-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: ${{ steps.guardar-rama.outputs.branch }}
+          target-branch: master
