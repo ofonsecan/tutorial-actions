@@ -10,11 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'CI-DEVELOP') }}
     steps:
-      - name: Imprimir nombre de la rama
-        id: imprimir-rama
+      - name: Guardar rama
+        id: guardar-rama
         env:
-          MI_VARIABLE: ${GITHUB_REF#refs/heads/}
-        run: echo "respuesta=${MI_VARIABLE}" >> $GITHUB_OUTPUT
+          RAMA: ${GITHUB_REF#refs/heads/}
+        run: echo "rama=${RAMA}" >> $GITHUB_OUTPUT
+      - name: Obtener rama
+        id: obtener-rama
+        run: echo ${{steps.guardar-rama.outputs.rama}}
       - name: Mezcla ${GITHUB_REF#refs/heads/} -> develop
         uses: tukasz/direct-merge-action@master
         with:
