@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'CI-DEVELOP') }}
     steps:
-      - name: Mezcla ${{ github.ref }} -> develop
+      - name: Mezcla ${{ github.refF#refs/heads/ }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: ${{ github.ref }}
+          source-branch: ${{ github.refF#refs/heads/ }}
           target-branch: develop
       - name: Checkout de repositorio
         uses: actions/checkout@v2
