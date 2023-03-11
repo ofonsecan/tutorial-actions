@@ -1,0 +1,25 @@
+name: CI Develop
+on:
+  push:
+    branches:
+      - 'feature**'
+jobs:
+  Mi-primer-job:
+    name: Mi primer job
+    runs-on: ubuntu-latest
+    outputs:
+      salida: ${{ steps.imprimir.outputs.respuesta }}
+    steps:
+      - name: Imprimir
+        id: imprimir
+        env:
+          MI_VARIABLE: Hola mundo
+        run: echo "respuesta=${MI_VARIABLE}" >> $GITHUB_OUTPUT
+  Mi-segundo-job:
+    needs: Mi-primer-job
+    name: Mi segundo job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Imprimir
+        id: imprimir
+        run: echo ${{needs.Mi-primer-job.outputs.salida}}
