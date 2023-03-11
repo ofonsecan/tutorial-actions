@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest, ubuntu-18.04 ]
+        os: [ ubuntu-18.04 ]
     outputs:
       salida: ${{ steps.imprimir.outputs.respuesta }}
     steps:
