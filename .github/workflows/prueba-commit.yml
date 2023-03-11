@@ -47,7 +47,7 @@ jobs:
   Merge-a-develop:
     permissions: write-all
     name: Automerge
-    needs: Pruebas unitarias
+    needs: Pruebas-unitarias
     runs-on: ubuntu-latest
     steps:
       - name: Mezcla ${{ needs.Merge-desde-develop.outputs.branch }} -> develop
