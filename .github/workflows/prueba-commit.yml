@@ -50,6 +50,11 @@ jobs:
     needs: [Merge-desde-develop, Pruebas-unitarias]
     runs-on: ubuntu-latest
     steps:
+      - name: Guardar nombre de la rama
+        id: guardar-rama
+        env:
+          RAMA: ${GITHUB_REF#refs/heads/}
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       - name: Mezcla ${{ needs.Merge-desde-develop.outputs.branch }} -> develop
         uses: tukasz/direct-merge-action@master
         with:
